@@ -1,0 +1,12 @@
+svg path,
+svg ellipse,
+svg circle{
+  fill-stroke: none;
+  opacity: 0.65;
+  cursor: help;
+}
+
+svg {
+  box-sizing: border-box;
+  border: 5px solid #000;
+}

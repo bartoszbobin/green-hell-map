@@ -1,20 +1,476 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<main class="container-fluid">
+  <div class="row">
+    <div class="col-lg-2">
+      <h3 class="text-center text-light">Green Hell map</h3>
+      <hr />
+      <div class="text-center">
+        <div class="btn-group" role="group">
+          <button type="button" class="btn btn-secondary" (click)="zoomIn()">Zoom in</button>
+          <button type="button" class="btn btn-secondary" (click)="zoomOut()">Zoom out</button>
+        </div>
+      </div>
+      <hr/>
+      <h6 class=" text-light">Filters</h6>
+      <div class="btn-group-vertical" role="group">
+        <button type="button"
+                class="btn btn-block btn-secondary active"
+                data-toggle="button"
+                *ngFor="let layer of layers"
+                (click)="toggleLayer(layer, $event)">{{ layer.label }}</button>
+      </div>
+      <hr/>
+      <p class="text-light">
+        Click with <kbd>CTRL</kbd> on map to set a <code>target</code><br />
+        You can share this link with others by copying <code>url</code>
+      </p>
+    </div>
+    <div class="col-lg-10">
+      <svg width="1200" height="768"
+           #map
+           xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 
+        <g transform="scale(0.40)" #zoom>
+          <image xlink:href="/assets/green-hell-map.jpg" width="3633" height="2311"  onmousedown="if (event.preventDefault) event.preventDefault()"/>
+
+          <g data-label="Armadillos">
+            <circle
+              style="fill:#AAA"
+              cx="800"
+              cy="330"
+              r="20">
+              <title>Armadillos #1</title>
+            </circle>
+            <circle
+              style="fill:#AAA"
+              cx="278"
+              cy="705"
+              r="20">
+              <title>Armadillos #2</title>
+            </circle>
+            <circle
+              style="fill:#AAA"
+              cx="515"
+              cy="633"
+              r="20">
+              <title>Armadillos #3</title>
+            </circle>
+            <circle
+              style="fill:#AAA"
+              cx="660"
+              cy="930"
+              r="20">
+              <title>Armadillos #3</title>
+            </circle>
+          </g>
+          <g data-label="Places for base">
+            <circle
+              style="fill:#000"
+              cx="315"
+              cy="655"
+              r="20">
+              <title>Place for base #1</title>
+            </circle>
+            <circle
+              style="fill:#000"
+              cx="1610"
+              cy="992"
+              r="20">
+              <title>Place for base #2</title>
+            </circle>
+            <circle
+              style="fill:#000"
+              cx="1890"
+              cy="773"
+              r="20">
+              <title>Place for base #3</title>
+            </circle>
+            <circle
+              style="fill:#000"
+              cx="1098"
+              cy="1638"
+              r="20">
+              <title>Place for base #4</title>
+            </circle>
+            <circle
+              style="fill:#000"
+              cx="1015"
+              cy="1205"
+              r="20">
+              <title>Place for base #5</title>
+            </circle>
+            <circle
+              style="fill:#000"
+              cx="2146"
+              cy="1164"
+              r="20">
+              <title>Place for base #6</title>
+            </circle>
+            <circle
+              style="fill:#000"
+              cx="2035"
+              cy="1015"
+              r="20">
+              <title>Place for base #7</title>
+            </circle>
+            <circle
+              style="fill:#000"
+              cx="1458"
+              cy="1145"
+              r="20">
+              <title>Place for base #8</title>
+            </circle>
+          </g>
+          <g data-label="Cayman">
+            <ellipse
+              ry="105"
+              rx="33"
+              cy="708"
+              cx="154"
+              style="fill:#55ddff;">
+              <title>Cayman</title>
+            </ellipse>
+            <circle cx="2260" cy="1160" r="80" style="fill:#55ddff;"><title>Cayman</title></circle>
+          </g>
+          <g
+            data-label="Turtles">
+            <circle
+              style="fill:#008000;"
+              cx="1974"
+              cy="983"
+              r="40">
+              <title>Turtle #1</title>
+            </circle>
+            <circle
+              style="fill:#008000;"
+              cx="2193"
+              cy="1156"
+              r="40">
+              <title>Turtle #2</title>
+            </circle>
+            <circle
+              style="fill:#008000;"
+              cx="500"
+              cy="500"
+              r="40">
+              <title>Turtle #3</title>
+            </circle>
+            <circle
+              style="fill:#008000;"
+              cx="598"
+              cy="428"
+              r="40">
+              <title>Turtle #3</title>
+            </circle>
+          </g>
+          <g
+            data-label="Caves">
+            <circle
+              style="fill:#ff00ff;"
+              id="path4749"
+              cx="282.17035"
+              cy="355.57645"
+              r="20">
+              <title>Cave #1</title>
+            </circle>
+            <circle
+              style="fill:#ff00ff;"
+              id="path4751"
+              cx="808"
+              cy="318"
+              r="20">
+              <title>Cave #2</title>
+            </circle>
+            <circle
+              style="fill:#ff00ff;"
+              id="path4753"
+              cx="926.09888"
+              cy="278.43362"
+              r="20">
+              <title>Cave #3</title>
+            </circle>
+            <circle
+              style="fill:#ff00ff;"
+              id="path4755"
+              cx="590.0274"
+              cy="769.50507"
+              r="20">
+              <title>Cave #4</title>
+            </circle>
+            <circle
+              style="fill:#ff00ff;"
+              id="path4757"
+              cx="1043.5989"
+              cy="885.57648"
+              r="20">
+              <title>Cave #5</title>
+            </circle>
+            <circle
+              style="fill:#ff00ff;"
+              id="path4759"
+              cx="342"
+              cy="1505"
+              r="20">
+              <title>Cave #6</title>
+            </circle>
+            <line x1="342" y1="1505" x2="280" y2="1460" stroke-width="5" style="stroke:#ff00ff;"/>
+            <line x1="270" y1="1405" x2="280" y2="1460" stroke-width="5" style="stroke:#ff00ff;" />
+            <circle
+              style="fill:#ff00ff;"
+              id="path4761"
+              cx="270"
+              cy="1405"
+              r="20">
+              <title>Cave #7</title>
+            </circle>
+            <circle
+              style="fill:#ff00ff;"
+              id="path4763"
+              cx="913.59888"
+              cy="1486.6479"
+              r="20">
+              <title>Cave #8</title>
+            </circle>
+            <circle
+              style="fill:#ff00ff;"
+              id="path4765"
+              cx="1252.5275"
+              cy="1249.8622"
+              r="20">
+              <title>Cave #9</title>
+            </circle>
+            <circle
+              style="fill:#ff00ff;"
+              id="path4767"
+              cx="1630.4478"
+              cy="1010.4098"
+              r="20">
+              <title>Crashed plane cave</title>
+            </circle>
+            <circle
+              style="fill:#ff00ff;"
+              id="path4769"
+              cx="1370.8385"
+              cy="832.11792"
+              r="20">
+              <title>Cave #11</title>
+            </circle>
+            <circle
+              style="fill:#ff00ff;"
+              id="path4771"
+              cx="1317.3004"
+              cy="905.85901"
+              r="20">
+              <title>Cave #12</title>
+            </circle>
+            <circle
+              style="fill:#ff00ff;"
+              cx="1581.9603"
+              cy="560.89197"
+              r="20">
+              <title>Gold mine cave</title>
+            </circle>
+            <circle
+              style="fill:#ff00ff;"
+              cx="2388"
+              cy="951"
+              r="20">
+              <title>Cave #13</title>
+            </circle>
+            <circle
+              style="fill:#ff00ff;"
+              cx="2320"
+              cy="863"
+              r="20">
+              <title>Cave #14</title>
+            </circle>
+            <circle
+              style="fill:#ff00ff;"
+              cx="1438"
+              cy="1110"
+              r="20">
+              <title>Cave #15</title>
+            </circle>
+            <circle
+              style="fill:#ff00ff;"
+              cx="1008"
+              cy="1658"
+              r="20">
+              <title>Cave #16</title>
+            </circle>
+            <circle
+              style="fill:#ff00ff;"
+              cx="1198"
+              cy="1235"
+              r="20">
+              <title>Cave #17</title>
+            </circle>
+          </g>
+          <g
+            data-label="Native camps">
+            <circle
+              style="fill:#ff0000"
+              cx="878"
+              cy="473"
+              r="18">
+              <title>Native Camp 1</title>
+            </circle>
+            <circle
+              style="fill:#ff0000"
+              cx="1919"
+              cy="554"
+              r="18">
+              <title>Native Camp 2</title>
+            </circle>
+          </g>
+          <g
+            data-label="Camps">
+            <circle
+              style="fill:#800000"
+              cx="1016"
+              cy="1200"
+              r="35">
+              <title>Abandoned camp</title>
+            </circle>
+            <circle
+              style="fill:#800000"
+              cx="550"
+              cy="1300"
+              r="42">
+              <title>Cartel camp</title>
+            </circle>
+            <circle
+              style="fill:#800000"
+              cx="450"
+              cy="625"
+              r="39">
+              <title>Abandoned fishing camp</title>
+            </circle>
+            <circle
+              style="fill:#800000"
+              cx="340"
+              cy="440"
+              r="23">
+              <title>Abandoned native camp</title>
+            </circle>
+            <circle
+              cx="2170"
+              cy="1160"
+              r="30"
+              style="fill:#800000;">
+              <title>Anaconda abandoned camp</title>
+            </circle>
+
+          </g>
+          <g
+            class="interesting-places"
+            data-label="Interesting places">
+            <circle
+              style="fill:#ffff00"
+              cx="1190"
+              cy="430"
+              r="18">
+              <title>Jeep</title>
+            </circle>
+            <circle _ngcontent-hrc-c0="" cx="497" cy="1020" r="50" style="fill:#ffff00"><title _ngcontent-hrc-c0="">
+              Pond </title></circle>
+            <circle
+              style="fill:#ffff00"
+              title="Lagoon"
+              cx="1150"
+              cy="1680"
+              r="80"><title>Lagoon</title></circle>
+            <circle
+              cx="2000"
+              cy="725"
+              r="30"
+              style="fill:#ffff00;">
+              <title>Bamboo bridge</title>
+            </circle>
+          </g>
+          <g
+            class="interesting-places"
+            data-label="Underwater places">
+            <circle
+              style="fill:#0000ff"
+              cx="2350"
+              cy="908"
+              r="18">
+              <title>Deep water hole</title>
+            </circle>
+            <circle
+              style="fill:#0000ff"
+              cx="1918"
+              cy="1008"
+              r="18">
+              <title>Underwater cave</title>
+            </circle>
+            <circle
+              style="fill:#0000ff"
+              cx="2210"
+              cy="1408"
+              r="18">
+              <title>Underwater cave</title>
+            </circle>
+          </g>
+          <g data-label="Bees Nests">
+            <circle
+              style="fill:#fff"
+              cx="528"
+              cy="438"
+              r="18">
+              <title>Bees Nests #1</title>
+            </circle>
+            <circle
+              style="fill:#fff"
+              cx="525"
+              cy="1015"
+              r="18">
+              <title>Bees Nests #2</title>
+            </circle>
+            <circle
+              style="fill:#fff"
+              cx="795"
+              cy="1115"
+              r="18">
+              <title>Bees Nests #3</title>
+            </circle>
+            <circle
+              style="fill:#fff"
+              cx="968"
+              cy="1473"
+              r="18">
+              <title>Bees Nests #4</title>
+            </circle>
+            <circle
+              style="fill:#fff"
+              cx="2133"
+              cy="1223"
+              r="18">
+              <title>Bees Nests #5</title>
+            </circle>
+            <circle
+              style="fill:#fff"
+              cx="605"
+              cy="1238"
+              r="18">
+              <title>Bees Nests #6</title>
+            </circle>
+            <circle
+              style="fill:#fff"
+              cx="933"
+              cy="248"
+              r="18">
+              <title>Bees Nests #7</title>
+            </circle>
+          </g>
+          <g #target transform="translate(-26 -26)">
+            <g transform="scale(2) translate(-26 -26)">
+              <path style="stroke: red; stroke-width: 5px" d="M16 16 36 36 M36 16 16 36"/>
+            </g>
+          </g>
+        </g>
+      </svg>
+
+    </div>
+  </div>
+</main>
