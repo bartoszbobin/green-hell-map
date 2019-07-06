@@ -44,7 +44,7 @@
               "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
-              "baseHref": "green-hell-map",
+              "baseHref": "/green-hell-map/",
               "buildOptimizer": true,
               "budgets": [
                 {
